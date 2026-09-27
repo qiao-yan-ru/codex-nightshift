@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "models": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "implementation": {
+          "$ref": "#/$defs/model"
+        },
+        "review": {
+          "$ref": "#/$defs/model"
+        },
+        "qa": {
+          "$ref": "#/$defs/model"
+        }
+      }
+    },
+    "qa": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["ui_tasks", "ask_each_run", "explicit_only", "disabled"]
+        },
+        "driver": {
+          "type": ["string", "null"]
+        },
+        "default_environment": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "attempts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "implementation_retries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "review_max_attempts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "qa_max_attempts": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "watchdog": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "poll_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "idle_timeout_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_runtime_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "terminate_grace_seconds": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "$defs": {
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reasoning_effort": {
+          "type": "string",
+          "enum": [
+            "inherit",
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+            "ultra"
+          ]
+        }
+      },
+      "required": ["id", "reasoning_effort"]
+    }
+  },
+  "required": ["schema_version"]
+}

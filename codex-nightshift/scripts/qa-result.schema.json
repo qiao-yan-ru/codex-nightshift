@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": ["pass", "fail", "blocked"]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "reasoning_effort": {
+      "type": "string"
+    },
+    "driver": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "target_fingerprint": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "finished_at": {
+      "type": "string"
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": ["pass", "fail", "blocked"]
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "high", "normal"]
+          },
+          "steps_executed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "assertions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "result": {
+                  "type": "string",
+                  "enum": ["pass", "fail", "unknown"]
+                },
+                "evidence": {
+                  "type": "string"
+                }
+              },
+              "required": ["description", "result", "evidence"]
+            }
+          },
+          "screenshots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "checkpoint": {
+                  "type": "string"
+                }
+              },
+              "required": ["path", "sha256", "checkpoint"]
+            }
+          },
+          "console_errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "network_errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "result",
+          "priority",
+          "steps_executed",
+          "assertions",
+          "screenshots",
+          "console_errors",
+          "network_errors",
+          "notes"
+        ]
+      }
+    },
+    "coverage_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "verdict",
+    "summary",
+    "model",
+    "reasoning_effort",
+    "driver",
+    "environment",
+    "target_fingerprint",
+    "started_at",
+    "finished_at",
+    "cases",
+    "coverage_gaps",
+    "residual_risks"
+  ]
+}

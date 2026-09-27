@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "onboarding": {
+    "first_run": true,
+    "status": "pending",
+    "completed_at": null
+  },
+  "models": {
+    "implementation": {
+      "id": "gpt-5.6-sol",
+      "reasoning_effort": "xhigh"
+    },
+    "review": {
+      "id": "gpt-6-astra",
+      "reasoning_effort": "xhigh"
+    },
+    "qa": {
+      "id": "gpt-6-astra",
+      "reasoning_effort": "high"
+    }
+  },
+  "qa": {
+    "mode": "ui_tasks",
+    "driver": null,
+    "default_environment": null
+  },
+  "attempts": {
+    "implementation_retries": 2,
+    "review_max_attempts": 5,
+    "qa_max_attempts": 5
+  },
+  "watchdog": {
+    "poll_seconds": 20,
+    "idle_timeout_seconds": 1200,
+    "max_runtime_seconds": 7200,
+    "terminate_grace_seconds": 10
+  }
+}

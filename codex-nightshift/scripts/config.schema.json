@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "onboarding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "first_run": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "complete", "deferred"]
+        },
+        "completed_at": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["first_run", "status", "completed_at"]
+    },
+    "models": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "implementation": {
+          "$ref": "#/$defs/model"
+        },
+        "review": {
+          "$ref": "#/$defs/model"
+        },
+        "qa": {
+          "$ref": "#/$defs/model"
+        }
+      },
+      "required": ["implementation", "review", "qa"]
+    },
+    "qa": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["ui_tasks", "ask_each_run", "explicit_only", "disabled"]
+        },
+        "driver": {
+          "type": ["string", "null"]
+        },
+        "default_environment": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["mode", "driver", "default_environment"]
+    },
+    "attempts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "implementation_retries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "review_max_attempts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "qa_max_attempts": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "implementation_retries",
+        "review_max_attempts",
+        "qa_max_attempts"
+      ]
+    },
+    "watchdog": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "poll_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "idle_timeout_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_runtime_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "terminate_grace_seconds": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "poll_seconds",
+        "idle_timeout_seconds",
+        "max_runtime_seconds",
+        "terminate_grace_seconds"
+      ]
+    }
+  },
+  "$defs": {
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reasoning_effort": {
+          "type": "string",
+          "enum": [
+            "inherit",
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+            "ultra"
+          ]
+        }
+      },
+      "required": ["id", "reasoning_effort"]
+    }
+  },
+  "required": [
+    "schema_version",
+    "onboarding",
+    "models",
+    "qa",
+    "attempts",
+    "watchdog"
+  ]
+}

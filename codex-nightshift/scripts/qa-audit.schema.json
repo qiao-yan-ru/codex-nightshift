@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["accept", "retry", "blocked"]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "qa_evidence_fingerprint": {
+      "type": "string"
+    },
+    "screenshot_reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "observation": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": ["pass", "fail"]
+          }
+        },
+        "required": ["case_id", "path", "observation", "result"]
+      }
+    },
+    "retested_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": ["pass", "fail", "blocked"]
+          },
+          "method": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "checkpoint": {
+                  "type": "string"
+                }
+              },
+              "required": ["path", "sha256", "checkpoint"]
+            }
+          }
+        },
+        "required": ["id", "result", "method", "evidence"]
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2"]
+          },
+          "title": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "required_fix": {
+            "type": "string"
+          }
+        },
+        "required": ["severity", "title", "evidence", "required_fix"]
+      }
+    },
+    "coverage_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "decision",
+    "summary",
+    "qa_evidence_fingerprint",
+    "screenshot_reviews",
+    "retested_cases",
+    "findings",
+    "coverage_gaps",
+    "residual_risks"
+  ]
+}
